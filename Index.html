@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Murray Osorio Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f6f8fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #custom-wrapper {
+      width: 420px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      box-sizing: border-box;
+      	--chat--header--padding: var(--chat--spacing);
+
+    }
+    
+    #custom-wrapper img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    #n8n-chat {
+      height: 500px;
+      overflow: hidden;
+    }
+    /* n8n overrides */
+    :root {
+      --chat--window--width: 100%;
+      --chat--window--height: 500px;
+      --chat--message--padding: 12px;
+      --chat--message--font-size: 0.7rem;
+      
+      
+    }
+    .n8n-chat__window {
+      max-height: 100% !important;
+      overflow: hidden;
+    }
+    .n8n-chat__messages {
+      height: 100%;
+      max-height: 350px;
+      overflow-y: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="custom-wrapper">
+    <img
+      src="https://d1imjpjik7kc4g.cloudfront.net/scfirm_images/d5b2d5cdfd3687dc8e966b35462c6c62.jpg"
+      alt="Murray Osorio"
+    />
+    <div id="n8n-chat"></div>
+  </div>
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+      webhookUrl: 'https://achet.app.n8n.cloud/webhook/c4ea097f-0f29-4499-9056-aa8fe4725334/chat',
+      mode: 'fullscreen',
+      target: '#n8n-chat',
+      initialMessages: ['How can I assist you today?'],
+      i18n: {
+        en: {
+          title: '     IT Support Agent',        // Removed default welcome title
+          subtitle: '',     // Removed default welcome subtitle
+          inputPlaceholder: 'Type your question...',
+        }
+      },
+      // onInit callback to inject custom CSS for smaller fonts and transparent header/logo
+      onInit: () => {
+        const style = document.createElement('style');
+        style.textContent = `
+          .n8n-chat__header {
+            background-color: transparent !important;
+            box-shadow: none !important;
+          }
+          .n8n-chat__logo,
+          .n8n-chat__logo img {
+            background-color: transparent !important;
+          }
+          /* Reduce font size for the chat interface (affects initial messages, buttons, etc.) */
+          .n8n-chat, .n8n-chat * {
+            font-size: 12px !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    });
+  </script>
+</body>
+</html>
