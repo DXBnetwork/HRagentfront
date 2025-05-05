@@ -53,12 +53,22 @@
       max-height: 350px;
       overflow-y: auto !important;
     }
+     .ai-disclaimer {
+      font-size: 0.65rem;
+      line-height: 1.4;
+      color: #666;
+      margin-top: 12px;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
   <div id="custom-wrapper">
     
     <div id="n8n-chat"></div>
+     <p class="ai-disclaimer">
+      Disclaimer: This content may include AI-generated material. While efforts have been made to ensure accuracy, please independently verify important details and seek professional advice when necessary.
+    </p>
   </div>
   <script type="module">
     import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
@@ -76,7 +86,7 @@
         }
       },
       // onInit callback to inject custom CSS for smaller fonts and transparent header/logo
-      onInit: () => {
+       onInit: () => {
         const style = document.createElement('style');
         style.textContent = `
           .n8n-chat__header {
@@ -87,13 +97,12 @@
           .n8n-chat__logo img {
             background-color: transparent !important;
           }
-          /* Reduce font size for the chat interface (affects initial messages, buttons, etc.) */
           .n8n-chat, .n8n-chat * {
             font-size: 12px !important;
           }
         `;
         document.head.appendChild(style);
-      }
+      },
     });
   </script>
 </body>
